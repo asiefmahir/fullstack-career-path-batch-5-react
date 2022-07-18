@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.note-form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 20px 0;
+}
+
+.note-form input {
+  padding: 3px 3px;
+  outline: none;
+}
+
+.note-form button {
+  margin-left: 10px;
   color: white;
+  background: #007bff;
+  padding: 5px 10px;
+  border: none;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  display: flex;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.note {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+  padding: 13px;
+  border-radius: 5px;
+  border: solid lightgray 1px;
+  overflow: auto;
+  width: fit-content;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-container p {
+  padding-right: 13px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.btn-container button {
+  margin-right: 10px;
+}
+
+.edit {
+  color: white;
+  background: #007bff;
+  padding: 5px 10px;
+  border: none;
+}
+
+.delete {
+  color: white;
+  background: #dc3545;
+  padding: 5px 10px;
+  border: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .note {
+    width: 100%;
   }
 }
