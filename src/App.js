@@ -1,128 +1,95 @@
 import './App.css';
-import {useState} from 'react'
-// import BioData from './BioData';
-// import PersonalInfo from './components/PersonalInfo';
-// import Skills from './components/Skills';
-// import SocialInfo from './components/SocialInfo';
+import { useState } from 'react'
 
 function App() {
-  // let name = "anisur vai";
-  // let arr = [1,2,3,4,5]
-
-  const [counter, setCounter] =  useState(100); // setCounter
-  const [counter2, setCounter2] = useState(12);
-
-
-  // counter + 1
+  const [notes, setNotes] = useState([])
+  const [title, setTitle] = useState('')
+  const [editableNote, setEditableNote] = useState(null);
+  const [editMode, setEditMode] = useState(false)
 
 
-  const increase = (payload) => {
-    setCounter(counter + payload) // counter + 1 = 100  + 1  = 101 
-    // counter  = 101;
-    // counter = counter + 1
+  // {} {od: 1}
+
+  // {id:}
+
+  // [] === [] // false
+
+  const noteCreateHandler = (event) => {
+    event.preventDefault();
+    if (title) {
+      const newNote = {
+        id: Date.now(),
+        title: title,
+        isComplete: false
+      }
+
+      setNotes([newNote, ...notes])
+      setTitle('')
+
+
+    } else {
+      alert('You are dumb')
+    }
   }
 
-  const decrease = (payload) => {
-    setCounter(counter - payload)
+
+  const noteDeleteHandler = (noteId) => {
+    setNotes(notes.filter((note) => note.id !== noteId))
   }
 
-  // console.log(amarFunction)
+  const editHandler = (noteId) => {
+    const toBeEditedNote = notes.find((note) => note.id === noteId);
+    setEditMode(true)
+    setEditableNote(toBeEditedNote);
+    setTitle(toBeEditedNote.title)
+  }
+
+  const updateHandler = (event) => {
+    event.preventDefault()
+    // setNotes()
+    if (title) {
+      const newNotesArray = notes.map((note) => {
+        if (note.id === editableNote.id) {
+          note.title = title
+        }
+        return note
+      })
+
+      setNotes(newNotesArray);
+      setEditMode(false)
+      setEditableNote(null)
+      setTitle('')
+    } else {
+      alert('You are non-focused')
+    }
+  }
 
 
-  // let counter = 0;
-
-  
-
+  /**
+   * note = {
+   *  id: Date.now(),
+   *  title: 'title-1',
+   *  isComplete: false
+   * }
+   */
 
   return (
     <div className="App">
-
-      <p>
-        {counter}
-      </p>
-      <p>
-        {counter2}
-      </p>
-      <button onClick = {() => increase(1)} >
-          Increase By One
-      </button>
-      <button onClick = {() => increase(5)} >
-          Increase By Five
-      </button>
-      <button onClick = {() => increase(10)} >
-          Increase By 10
-      </button>
-
-      <button onClick= {() => decrease(1)} >
-        Decrease By One
-      </button>
-      <button onClick= {() => decrease(5)} >
-        Decrease By 5
-      </button>
-      <button onClick= {() => decrease(10)} >
-        Decrease By 10
-      </button>
-
-     {/* <BioData 
-        name = "SRSETU"
-        mobile = '+005154554455'
-        email = 'srsetu@gmail.com'
-        twitter = 'sr/twitter'
-        linkedIn = 'sr/linkedIn'
-        fb = 'fb/srsetu'
-        skills = {['Js', 'WP', 'PHP', 'MySql']}
-     /> */}
-     {/* <BioData>
-        <PersonalInfo />
-        <SocialInfo />
-        <Skills />
-     </BioData> */}
-
-     {/* <BioData 
-        socialInfo = {<SocialInfo 
-                        twitter = 'sr/twitter'
-                        linkedIn = 'sr/linkedIn'
-                        fb = 'fb/srsetu'
-                      />}
-        personalInfo = {
-          <PersonalInfo 
-            name = "SRSETU"
-            mobile = '+005154554455'
-            email = 'srsetu@gmail.com'
-          />
-        }
-
-        skillSection = {
-          <Skills 
-            skills = {['Js', 'WP', 'PHP', 'MySql']}
-          />
-        }
-
-        // interesSection = {<Interests />}
-     /> */}
-     {/* <BioData 
-        name = "Mahir"
-        email = 'mahr@gmail.com'
-        twitter = 'mahir/twitter'
-        linkedIn = 'mahir/linkedIn'
-        fb = 'fb/mahr'
-        skills = {['Js', 'MySql']}
-     /> */}
-     
-     {/* <hr /> */}
+      <form onSubmit={(event) => editMode ? updateHandler(event) : noteCreateHandler(event)}>
+        <input onChange={(event) => setTitle(event.target.value)} type="text" value={title} name="" id="" placeholder='Enter a valid note title' />
+        <button type="submit">{editMode ? 'Update Note' : 'Add Note'}</button>
+      </form>
+      <ul>
+        {notes.map((note) => (
+          <li>
+            <span>{note.title}</span>
+            <button onClick={() => editHandler(note.id)}>edit</button>
+            <button onClick={() => noteDeleteHandler(note.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
-
-
-<App />
-
-// App(1, 1)
-
-/**
- * 1) It should be a function
- * 2) This function should return "something"
- * 3) That "something" must be some jsx - (html-eish code)
- */
 
 export default App;
