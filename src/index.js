@@ -7,11 +7,9 @@ import StudentProvider from './contexts/Student';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-    <StudentProvider>
-      <App />
-    </StudentProvider>
-  
+  <StudentProvider>
+       <App />
+  </StudentProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

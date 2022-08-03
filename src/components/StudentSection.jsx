@@ -5,28 +5,12 @@ import AllStudentList from './AllStudentList'
 import PresentStudentList from './PresentStudentList'
 
 function StudentSection() {
-    const {allStudentList, setAllStudentList} = useContext(StudentContext)
-
-    const togglePresentMode = (studentId) => {
-        setAllStudentList(allStudentList.map((item) => {
-        if (item.id === studentId) {
-            item.isPresent = !item.isPresent
-        }
-
-        return item
-        }))
-    }
+   
     return (
         <div style={{ display: 'flex', justifyContent: 'space-around' }} class="student-section">
             <AllStudentList />
-            <PresentStudentList 
-                
-                togglePresentMode = {togglePresentMode}
-            />
-            <AbsentStudentList 
-                
-                togglePresentMode = {togglePresentMode}
-            />
+            <PresentStudentList />
+            <AbsentStudentList />
         </div>
 
     )
