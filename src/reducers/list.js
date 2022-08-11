@@ -5,6 +5,7 @@ export const listReducer = (lists = [], action) => {
      *      id,
      *      title,
      *      tasks: [],
+     *  [3, 2, 1]
      *      boardId: number
      * }
      */
@@ -12,7 +13,7 @@ export const listReducer = (lists = [], action) => {
     switch (action.type) {
         case 'CREATE_LIST' : {
             const newList = {
-                id: Date.now(),
+                id: action.payload.id,
                 title: action.payload.title,
                 tasks: action.payload.tasks || [],
                 boardId: action.payload.boardId
@@ -60,6 +61,19 @@ export const listReducer = (lists = [], action) => {
             return lists.map(item => {
                 if (item.id === action.payload.id) {
                     item.boardId = action.payload.boardId
+                }
+
+                return item
+            })
+        }
+
+        case 'SORT_TASK_IDS_IN_LIST' : {
+            const {source, destination, taskId} =  action.payload;
+
+            return lists.map(item => {
+                if (item.id === parseInt(source.droppableId)) {
+                    const sortedTask = item.tasks.splice(source.index, 1)
+                    item.tasks.splice(destination.index, 0, ...sortedTask)
                 }
 
                 return item

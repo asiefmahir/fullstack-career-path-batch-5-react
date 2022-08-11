@@ -8,10 +8,10 @@ export const taskReducer = (tasks = [], action) => {
      *      boardId: number
      * }
      */
-    switch (action.payload) {
+    switch (action.type) {
         case 'CREATE_TASK' : {
             const newTasks = {
-                id: Date.now(),
+                id: action.payload.id,
                 title: action.payload.title,
                 boardId: action.payload.boardId,
                 listId: action.payload.listId
