@@ -3,7 +3,8 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux'
 
 import {icons} from '../assets'
-import { MODIFY_QUANTITY_OF_A_ITEM, REMOVE_ITEM_FROM_CART } from '../store/actions/actionTypes/cart';
+// import { MODIFY_QUANTITY_OF_A_ITEM, REMOVE_ITEM_FROM_CART } from '../store/actions/actionTypes/cart';
+import {modifyQuantityOfAItem, removeFromCart} from '../store/reducers/cart'
 
 function CartItem({item}) {
 
@@ -34,7 +35,7 @@ function CartItem({item}) {
                         <figure onClick={() => {
                                 if (quantity > 0) {
                                     setQuantity((prevQuantity) => {
-                                        dispatch({type: MODIFY_QUANTITY_OF_A_ITEM, payload: {id: item.id, quantity: prevQuantity - 1}})
+                                        dispatch(modifyQuantityOfAItem({id: item.id, quantity: prevQuantity - 1}))
                                         return prevQuantity - 1
                                     })
                                     
@@ -56,7 +57,7 @@ function CartItem({item}) {
                             if (parseInt(e.target.value) >= 0) {
                                 
                                     setQuantity(parseInt(e.target.value))
-                                    dispatch({type: MODIFY_QUANTITY_OF_A_ITEM, payload: {id: item.id, quantity: quantity}}) 
+                                    dispatch(modifyQuantityOfAItem({id: item.id, quantity: parseInt(e.target.value)})) 
                                 
                             }
                         }}
@@ -70,7 +71,7 @@ function CartItem({item}) {
                         <figure onClick={() => {
                                if (quantity >= 0) {
                                     setQuantity((prevQuantity) => {
-                                        dispatch({type: MODIFY_QUANTITY_OF_A_ITEM, payload: {id: item.id, quantity: prevQuantity + 1}})
+                                        dispatch(modifyQuantityOfAItem({id: item.id, quantity: prevQuantity + 1}))
                                         return prevQuantity + 1
                                     })
                                      
@@ -84,7 +85,7 @@ function CartItem({item}) {
             </td>
             <td>$  {item.quantity ? item.newPrice * item.quantity : 0}</td>
             <td>
-                <img class="cross-icon" src = {icons.crossIcon} onClick = {() => dispatch({type: REMOVE_ITEM_FROM_CART, payload: item.id})} />
+                <img class="cross-icon" src = {icons.crossIcon} onClick = {() => dispatch(removeFromCart(item.id))} />
                 
             </td>
         </tr>
