@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {fetchProducts} from '../store/reducers/cart';
+import { useDispatch } from 'react-redux';
 
 function Header() {
+    const dispatch = useDispatch()
   return (
      <header class="header">
                 <div class="container">
@@ -19,13 +22,13 @@ function Header() {
                     </div>
                     <nav class="header__navbar">
                         <ul>
-                            <li>
+                            <li onClick = {() => dispatch(fetchProducts())}>
                                 <Link to = '/' >
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <a href="#"> Checkout </a>
+                                CheckOut
                             </li>
                             <li>
                                 <a href="#"> Cart </a>
