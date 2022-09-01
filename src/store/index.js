@@ -1,9 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from './reducers/root';
-import  cartReducer  from './reducers/cart';
+import { compose, createStore, applyMiddleware } from 'redux';
+import { rootReducer } from './reducer/root';
+import { dummyMiddleWare } from './middlewares/dummy.';
+// import { fetchTaskMiddleWare } from './middlewares/fetchTask';
+import thunk from 'redux-thunk'
 
-export const store = configureStore({
-    reducer: {
-        cart: cartReducer
-    }
-})
+
+export const store = createStore(rootReducer, applyMiddleware( thunk))
