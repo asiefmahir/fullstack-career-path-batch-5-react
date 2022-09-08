@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps (context) {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.params.postId}`);
+    const response = await fetch(`http://localhost:4000/posts/${context.params.postId}`);
     const post = await response.json()
 
   return {
